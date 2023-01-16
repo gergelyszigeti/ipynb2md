@@ -20,8 +20,6 @@ with open(arg2, 'w') as outfile, open(arg1, 'r') as infile:
       elif line[-4:-1] == '\\n"':  line = line.lstrip()[1:-4] + '\n'
       elif line[-2] == '"':        line = line.lstrip()[1:-2] + '\n'
       #TODO: remove trailing spaces
-      #TODO: replace html <img > tags with markdown tags, see here:
-      # https://stackoverflow.com/questions/14494747/how-to-add-images-to-readme-md-on-github
       outfile.write(line)
 
     if 'markdown' in line and state == 'outside markdown': state = 'markdown seen'
