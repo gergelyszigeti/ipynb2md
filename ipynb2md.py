@@ -16,10 +16,10 @@ with open(arg2, 'w') as outfile, open(arg1, 'r') as infile:
   for line in infile:
     if line[-2] == ']' and state == 'in markdown': state = 'outside markdown'
     if state == 'in markdown':
-      if   line[-5:-1] == '\\n",': line = line.lstrip()[1:-5] + '\n'
-      elif line[-4:-1] == '\\n"':  line = line.lstrip()[1:-4] + '\n'
-      elif line[-2] == '"':        line = line.lstrip()[1:-2] + '\n'
-      #TODO: remove trailing spaces
+      if   line[-5:-1] == '\\n",': line = line.lstrip()[1:-5].rstrip() + '\n'
+      elif line[-4:-1] == '\\n"':  line = line.lstrip()[1:-4].rstrip() + '\n'
+      elif line[-2] == '"':        line = line.lstrip()[1:-2].rstrip() + '\n'
+      line = line.replace('\\"', '"') # change all \" to "
       outfile.write(line)
 
     if 'markdown' in line and state == 'outside markdown': state = 'markdown seen'
