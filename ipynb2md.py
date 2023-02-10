@@ -14,7 +14,8 @@ if len(sys.argv) > 1 :
 with open(arg2, 'w') as outfile, open(arg1, 'r') as infile:
   state = 'outside markdown'
   for line in infile:
-    if line[-2] == ']' and state == 'in markdown': state = 'outside markdown'
+    if state == 'in markdown' and (line[-2] == ']' or line[-3:] == '},\n'):
+      state = 'outside markdown'
     if state == 'in markdown':
       if   line[-5:-1] == '\\n",': line = line.lstrip()[1:-5].rstrip() + '\n'
       elif line[-4:-1] == '\\n"':  line = line.lstrip()[1:-4].rstrip() + '\n'
